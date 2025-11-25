@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="videos"
+run/main_scene="uid://cct5w8capl8yw"
+config/features=PackedStringArray("4.5", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Config="*res://scripts/config.gd"
+Common="*res://scripts/common.gd"
+FileUtil="*res://scripts/file_util.gd"
+Datetime="*res://scripts/datetime.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=2
+
+[rendering]
+
+renderer/rendering_method="mobile"
