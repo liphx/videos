@@ -85,3 +85,9 @@ func extract_imdb(html: String) -> String:
         if m:
             return m.get_string(1)
     return ""
+
+static func is_valid_douban_id(id_value: String) -> bool:
+    var s := id_value.strip_edges()
+    var regex := RegEx.new()
+    regex.compile(r"^\d{6,10}$")
+    return regex.search(s) != null

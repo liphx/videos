@@ -10,7 +10,6 @@ var data = {
 }
 
 func _ready() -> void:
-    #print(data)
     if data == null:
         return
     var vbox = $MarginContainer/VBoxContainer
@@ -87,8 +86,7 @@ func _save_cover_to_local(path: String, image: Image) -> void:
 
 func _on_vbox_input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-        print("VBoxContainer clicked!")
         if data.local_path and DirAccess.dir_exists_absolute(data.local_path):
             OS.shell_open(data.local_path)
         else:
-            print("路径不存在:", data.local_path)
+            print("路径不存在: ", data.local_path)

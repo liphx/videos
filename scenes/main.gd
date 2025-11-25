@@ -20,15 +20,23 @@ func load_items() -> void:
         $FileDialog.popup_centered()
         return
 
+    var idx_file = FileUtil.join(videos_path, '.videos')
+    if not FileAccess.file_exists(idx_file):
+        print(idx_file, ' not exist')
+        return
+
     var dirs = FileUtil.list_dirs(videos_path)
-    for dir in dirs:
-        var path = FileUtil.join(videos_path, dir)
-        var meta_path = FileUtil.join(path, 'meta.json')
-        if not FileAccess.file_exists(meta_path):
-            print(path)
+    for douban_id in dirs:
+        if not Douban.is_valid_douban_id(douban_id):
+            print('douban id: ', douban_id, ' not valid')
             continue
-        var meta = FileUtil.load_json(meta_path)
-        var douban_id = meta.get('douban')
+        var path = FileUtil.join(videos_path, douban_id)
+        var meta_path = FileUtil.join(path, 'meta.json')
+        var meta = {}
+        if not FileAccess.file_exists(meta_path):
+            print('meta file not exist: ', path)
+        else:
+            meta = FileUtil.load_json(meta_path)
         var douban_update_at = meta.get('douban_update_at')
         if douban_id and not douban_update_at:
             var douban := Douban.new()

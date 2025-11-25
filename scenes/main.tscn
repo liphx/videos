@@ -85,6 +85,7 @@ theme_override_constants/v_separation = 50
 columns = 6
 
 [node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
 file_mode = 2
 access = 2
 use_native_dialog = true
