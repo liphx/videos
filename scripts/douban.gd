@@ -27,6 +27,7 @@ func fetch_movie_from_douban_id(item: String) -> Dictionary:
     # HTML 解析
     # -----------------------
     var title = extract_title(body)
+    title = Common.html_unescape(title)
     var year = extract_year(body)
     var cover = extract_cover(body)
     var imdb = extract_imdb(body)
