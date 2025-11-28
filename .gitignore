@@ -2,3 +2,5 @@
 /android/
 videos.sh
 videos.x86_64
+videos.app/
+videos.command
