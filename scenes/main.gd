@@ -84,15 +84,22 @@ func display_items() -> void:
         _items.sort_custom(func(a, b):
             return a['meta']["year"] > b['meta']["year"]
         )
+
+    var display_count = 0
     for item in _items:
         var meta = item['meta']
         if _search_text != '' and not meta['title'].containsn(_search_text):
             continue
+        display_count += 1
         var instance = item_scene.instantiate()
         instance.data = meta
         instance.data.local_path = item['path']
         container.add_child(instance)
         item['instance'] = instance
+    if _search_text != '':
+        $MarginContainer/VBoxContainer/HBoxContainer/Label.text = '所有视频（{0}/{1}）'.format([display_count, _items.size()])
+    else:
+        $MarginContainer/VBoxContainer/HBoxContainer/Label.text = '所有视频（{0}）'.format([_items.size()])
 
 
 func _on_settings_pressed() -> void:
