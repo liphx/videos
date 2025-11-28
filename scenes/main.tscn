@@ -22,22 +22,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(240, 0)
+[node name="HSplitContainer3" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="search_text" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(600, 0)
@@ -56,16 +56,21 @@ expand_icon = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="sort" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+
+[node name="HSplitContainer4" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
 [node name="settings" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 icon = ExtResource("3_sugp2")
 icon_alignment = 1
 expand_icon = true
-
-[node name="HSplitContainer3" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -91,5 +96,6 @@ access = 2
 use_native_dialog = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/search" to="." method="_on_search_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer/sort" to="." method="_on_sort_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/settings" to="." method="_on_settings_pressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]
