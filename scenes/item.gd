@@ -38,7 +38,8 @@ func _ready() -> void:
         var http := HTTPRequest.new()
         add_child(http)
 
-        var err := http.request(data.cover)
+        var headers = ["User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)"]
+        var err := http.request(data.cover, headers)
         if err != OK:
             return
 

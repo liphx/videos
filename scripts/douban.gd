@@ -7,8 +7,29 @@ func _ready():
     http = HTTPRequest.new()
     add_child(http)
 
-
 func fetch_movie_from_douban_id(item: String) -> Dictionary:
+    var url = "http://127.0.0.1:5000/api/movie/douban/%s" % item
+    print(url)
+    var err = http.request(url)
+    if err != OK:
+        return {}
+    var result = await http.request_completed
+    var status = result[1]
+    if status != 200:
+        return {}
+    var json = JSON.new()
+    var parse_error = json.parse(result[3].get_string_from_utf8())
+    if parse_error != OK:
+        return {}
+    var response = json.get_data()
+    if not response.get("success", false):
+        return {}
+    var data = response.get("data", {})
+    data["douban"] = item
+    return data
+
+
+func fetch_movie_from_douban_id2(item: String) -> Dictionary:
     var url = "https://movie.douban.com/subject/%s/" % item
     var headers = ["User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)"]
 
