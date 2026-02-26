@@ -38,7 +38,10 @@ func _ready() -> void:
         var http := HTTPRequest.new()
         add_child(http)
 
-        var headers = ["User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)"]
+        var headers = [
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            "Referer: https://movie.douban.com"
+        ]
         var err := http.request(data.cover, headers)
         if err != OK:
             return

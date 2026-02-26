@@ -8,7 +8,7 @@ func _ready():
     add_child(http)
 
 func fetch_movie_from_douban_id(item: String) -> Dictionary:
-    var url = "http://127.0.0.1:5000/api/movie/douban/%s" % item
+    var url = "https://jasmine.pub:9980/api/movie/douban/%s" % item
     print(url)
     var err = http.request(url)
     if err != OK:
