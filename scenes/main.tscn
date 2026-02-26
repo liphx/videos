@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cct5w8capl8yw"]
+[gd_scene format=3 uid="uid://cct5w8capl8yw"]
 
 [ext_resource type="Script" uid="uid://dwcyc2d56td7a" path="res://scenes/main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://7jtifcg7ilws" path="res://assets/images/search.svg" id="2_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://noimumrds3cb" path="res://assets/images/directory.svg" id="3_sugp2"]
 
-[node name="main" type="Control"]
+[node name="main" type="Control" unique_id=1718406208]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +15,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ig7tw")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1967926040]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,68 +27,68 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2137048170]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1459323782]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 
-[node name="HSplitContainer3" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HSplitContainer3" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=889588065]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=264305665]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 28
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="search_text" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="search_text" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1165082225]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 placeholder_text = "搜索"
 
-[node name="search" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="search" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1305675248]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 icon = ExtResource("2_0wfyh")
 icon_alignment = 1
 expand_icon = true
 
-[node name="HSplitContainer2" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HSplitContainer2" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=92950345]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="sort" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="sort" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1694883355]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 
-[node name="HSplitContainer4" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HSplitContainer4" type="HSplitContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=680397172]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
-[node name="settings" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="settings" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1806310649]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 icon = ExtResource("3_sugp2")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=454138872]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=232119757]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/CenterContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/CenterContainer" unique_id=960457077]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -96,13 +96,6 @@ theme_override_constants/h_separation = 40
 theme_override_constants/v_separation = 50
 columns = 6
 
-[node name="FileDialog" type="FileDialog" parent="."]
-title = "Open a Directory"
-file_mode = 2
-access = 2
-use_native_dialog = true
-
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/search" to="." method="_on_search_pressed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/HBoxContainer/sort" to="." method="_on_sort_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/settings" to="." method="_on_settings_pressed"]
-[connection signal="dir_selected" from="FileDialog" to="." method="_on_file_dialog_dir_selected"]

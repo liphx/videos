@@ -27,42 +27,36 @@ func _ready() -> void:
 
 func load_items() -> void:
     _items.clear()
-
-    var videos_path = Config.get_value('VIDEOS_PATH')
-    print('videos_path: ', videos_path)
-    if videos_path == null:
-        $FileDialog.popup_centered()
-        return
-
-    var idx_file = FileUtil.join(videos_path, '.videos')
-    if not FileAccess.file_exists(idx_file):
-        print(idx_file, ' not exist')
-        return
-
-    var dirs = FileUtil.list_dirs(videos_path)
-    for douban_id in dirs:
-        if not Douban.is_valid_douban_id(douban_id):
-            print('douban id: ', douban_id, ' not valid')
-            continue
-        var path = FileUtil.join(videos_path, douban_id)
-        var meta_path = FileUtil.join(path, 'meta.json')
-        var meta = {}
-        if not FileAccess.file_exists(meta_path):
-            print('meta file not exist: ', path)
-        else:
-            meta = FileUtil.load_json(meta_path)
-        var douban_update_at = meta.get('douban_update_at')
-        if douban_id and not douban_update_at:
-            var douban := Douban.new()
-            add_child(douban)
-            var info = await douban.fetch_movie_from_douban_id(douban_id)
-            meta.merge(info, true)
-            meta.douban_update_at = Datetime.timestamp_now()
-            FileUtil.save_json(meta_path, meta)
-        _items.append({
-            'path': path,
-            'meta': meta
-        })
+    var videos_paths = Config.get_value('VIDEOS_PATHS', [])
+    for videos_path in videos_paths:
+        var idx_file = FileUtil.join(videos_path, '.videos')
+        if not FileAccess.file_exists(idx_file):
+            print(idx_file, ' not exist')
+            return
+        var dirs = FileUtil.list_dirs(videos_path)
+        for douban_id in dirs:
+            if not Douban.is_valid_douban_id(douban_id):
+                print('douban id: ', douban_id, ' not valid')
+                continue
+            var path = FileUtil.join(videos_path, douban_id)
+            var meta_path = FileUtil.join(path, 'meta.json')
+            var meta = {}
+            if not FileAccess.file_exists(meta_path):
+                print('meta file not exist: ', path)
+            else:
+                meta = FileUtil.load_json(meta_path)
+            var douban_update_at = meta.get('douban_update_at')
+            if douban_id and not douban_update_at:
+                var douban := Douban.new()
+                add_child(douban)
+                var info = await douban.fetch_movie_from_douban_id(douban_id)
+                meta.merge(info, true)
+                meta.douban_update_at = Datetime.timestamp_now()
+                FileUtil.save_json(meta_path, meta)
+            _items.append({
+                'path': path,
+                'meta': meta
+            })
 
 
 func display_items() -> void:
@@ -103,13 +97,13 @@ func display_items() -> void:
 
 
 func _on_settings_pressed() -> void:
-    $FileDialog.popup_centered()
-
-
-func _on_file_dialog_dir_selected(dir: String) -> void:
-    Config.set_value('VIDEOS_PATH', dir)
-    load_items()
-    display_items()
+    var window_instance = preload('res://scenes/directory.tscn').instantiate()
+    add_child(window_instance)
+    window_instance.popup_centered()
+    window_instance.tree_exited.connect(func():
+        load_items()
+        display_items()
+    )
 
 
 func _on_search_pressed() -> void:
