@@ -4,7 +4,7 @@
 
 [node name="Directory" type="Window" unique_id=766781035]
 oversampling_override = 1.0
-title = "添加目录"
+title = "视频库管理"
 initial_position = 1
 size = Vector2i(800, 600)
 script = ExtResource("1_w8yty")

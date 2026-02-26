@@ -22,12 +22,19 @@ func refresh():
         label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         hbox.add_child(label)
 
-        var btn = Button.new()
-        btn.icon = load("res://assets/images/close.svg")
-        btn.expand_icon = true
-        btn.custom_minimum_size = Vector2(30, 30)
-        btn.pressed.connect(remove_path.bind(path))
-        hbox.add_child(btn)
+        var open = Button.new()
+        open.icon = load("res://assets/images/directory.svg")
+        open.expand_icon = true
+        open.custom_minimum_size = Vector2(30, 30)
+        open.pressed.connect(func(): OS.shell_open(path))
+        hbox.add_child(open)
+
+        var close = Button.new()
+        close.icon = load("res://assets/images/close.svg")
+        close.expand_icon = true
+        close.custom_minimum_size = Vector2(30, 30)
+        close.pressed.connect(remove_path.bind(path))
+        hbox.add_child(close)
 
     var btn = Button.new()
     btn.text = '添加目录'
@@ -37,6 +44,7 @@ func refresh():
 
 func remove_path(path):
     paths.erase(path)
+    paths = Common.sort_and_unique(paths)
     Config.set_value('VIDEOS_PATHS', paths)
     refresh()
 
@@ -47,6 +55,7 @@ func open_file_dialog():
 
 func _on_file_dialog_dir_selected(dir: String) -> void:
     paths.append(dir)
+    paths = Common.sort_and_unique(paths)
     Config.set_value('VIDEOS_PATHS', paths)
     refresh()
 

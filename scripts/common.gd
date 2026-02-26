@@ -10,3 +10,14 @@ func update_grid_columns(grid_container):
 
 static func html_unescape(text: String) -> String:
     return text.replace("&#39;", "'").replace("&quot;", "\"").replace("&amp;", "&").replace("&lt;", "<").replace("&gt;", ">")
+
+static func sort_and_unique(array: Array) -> Array:
+    var copy = array.duplicate()
+    copy.sort()
+
+    var result = []
+    for item in copy:
+        if result.is_empty() or item != result[-1]:
+            result.append(item)
+
+    return result
