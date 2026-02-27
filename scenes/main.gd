@@ -32,7 +32,7 @@ func load_items() -> void:
         var idx_file = FileUtil.join(videos_path, '.videos')
         if not FileAccess.file_exists(idx_file):
             print(idx_file, ' not exist')
-            return
+            continue
         var dirs = FileUtil.list_dirs(videos_path)
         for douban_id in dirs:
             if not Douban.is_valid_douban_id(douban_id):
